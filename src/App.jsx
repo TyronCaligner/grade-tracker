@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header.jsx'
 import AddStudentForm from './components/AddStudentForm.jsx'
 import StudentList from './components/StudentList.jsx'
@@ -11,6 +11,10 @@ const startingStudents = [
 
 function App() {
   const [students, setStudents] = useState(startingStudents)
+
+  useEffect(() => {
+    localStorage.setItem('students', JSON.stringify(students))
+  }, [students])
 
   function handleAdd(name, grade) {
     setStudents([...students, { id: Date.now(), name, grade }])
