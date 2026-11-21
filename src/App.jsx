@@ -10,7 +10,11 @@ const startingStudents = [
 ]
 
 function App() {
-  const [students, setStudents] = useState(startingStudents)
+  const [students, setStudents] = useState(() => {
+    const saved = localStorage.getItem('students')
+    if (saved) return JSON.parse(saved)
+    return startingStudents
+  })
 
   useEffect(() => {
     localStorage.setItem('students', JSON.stringify(students))
